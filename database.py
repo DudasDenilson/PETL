@@ -16,8 +16,8 @@ def con_database():
 # cur.execute(sql)
 
 
-def cursor_database(connection):
-    con = connection
+def cursor_database():
+    con = con_database()
     cur = con.cursor()
     return cur
 

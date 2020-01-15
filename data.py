@@ -13,7 +13,7 @@ primary key(order_id));
 """
 
 SQL_TABLE_GEOLOCATION = """create table geolocation (
-                                    zip_code_geolocation numeric primary key , 
+                                    zip_code_geolocation numeric , 
                                     geolocation_lat numeric, 
                                     geolocation_long numeric, 
                                     geolocation_city varchar(100), 
@@ -45,15 +45,15 @@ foreign key(order_id) references orders(order_id)
 
 SQL_TABLE_PRODUCTS = """
 create table products (
-"product_id" varchar(50) primary key,
-"product_category_name"  varchar(30),
-"product_name_lenght" numeric,
-"product_description_lenght" numeric,
-"product_photos_qty" numeric,
-"product_weight_g" float,
-"product_length_cm" numeric,
-"product_height_cm" numeric,
-"product_width_cm" numeric
+product_id varchar(50) primary key,
+product_category_name  varchar(80),
+product_name_lenght varchar(10),
+product_description_lenght varchar(10),
+product_photos_qty varchar(10),
+product_weight_g varchar(10),
+product_length_cm varchar(10),
+product_height_cm varchar(10),
+product_width_cm varchar(10)
 
 );
 """
@@ -63,7 +63,7 @@ SQL_TABLE_PEOPLE = """
 create table people (
 people_id varchar(50) primary key,
 people_unique_id varchar(50),
-people_zip_code_prefix numeric references geolocation(zip_code_geolocation),
+people_zip_code_prefix numeric ,
 people_classification varchar(30)
 )
 
@@ -83,4 +83,5 @@ CSV_FILE_GEOLOCATION = 'https://raw.githubusercontent.com/olist/work-at-olist-da
 CSV_FILE_ORDERS =  'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_orders_dataset.csv'
 CSV_FILE_ORDER_PAY =  'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_order_payments_dataset.csv'
 CSV_FILE_ORDER_ITEM = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_order_items_dataset.csv'
+CSV_FILE_PRODUCTS = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_products_dataset.csv'
 
