@@ -47,13 +47,13 @@ SQL_TABLE_PRODUCTS = """
 create table products (
 product_id varchar(50) primary key,
 product_category_name  varchar(80),
-product_name_lenght varchar(10),
-product_description_lenght varchar(10),
-product_photos_qty varchar(10),
-product_weight_g varchar(10),
-product_length_cm varchar(10),
-product_height_cm varchar(10),
-product_width_cm varchar(10)
+product_name_lenght numeric,
+product_description_lenght numeric(10),
+product_photos_qty numeric(10),
+product_weight_g numeric(10),
+product_length_cm numeric(10),
+product_height_cm numeric(10),
+product_width_cm numeric(10)
 
 );
 """
