@@ -84,4 +84,6 @@ CSV_FILE_ORDERS =  'https://raw.githubusercontent.com/olist/work-at-olist-data/m
 CSV_FILE_ORDER_PAY =  'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_order_payments_dataset.csv'
 CSV_FILE_ORDER_ITEM = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_order_items_dataset.csv'
 CSV_FILE_PRODUCTS = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_products_dataset.csv'
+CSV_FILE_SELLERS = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_sellers_dataset.csv'
+CSV_FILE_CUSTOMER = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_customers_dataset.csv'
 
