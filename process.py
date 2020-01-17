@@ -10,6 +10,7 @@ database.create_table(data.SQL_TABLE_ORDERS, 'orders')
 database.create_table(data.SQL_TABLE_ORDER_PAY, 'order_payments')
 database.create_table(data.SQL_TABLE_PRODUCTS, 'products')
 database.create_table(data.SQL_TABLE_ORDER_ITEM, 'order_items')
+database.create_table(data.SQL_TABLE_REVIEW, 'order_review')
 
 
 def process_geolocation(frame_data):
@@ -91,7 +92,7 @@ def process_order(frame_data):
     frame_data = frame_data.fillna('')
     cursor = con.cursor()
     for line in frame_data.values:
-        #print(line)
+        # print(line)
         cursor.execute(
             '''INSERT INTO orders (order_id,customer_id,order_status, order_purchase_timestamp, order_approved_at, 
             order_delivered_carrier_date, order_delivered_customer_date, order_estimated_delivery_date  ) 
@@ -99,12 +100,13 @@ def process_order(frame_data):
                                         TO_TIMESTAMP('{4}','yyyy-mm-dd hh24:mi:ss'),
                                         TO_TIMESTAMP('{5}','yyyy-mm-dd hh24:mi:ss'),
                                         TO_TIMESTAMP('{6}','yyyy-mm-dd hh24:mi:ss'),
-                                        TO_TIMESTAMP('{7}','yyyy-mm-dd hh24:mi:ss'))'''.format(line[0], line[1], line[2],
-                                                                 (line[3]),
-                                                                 (line[4]),
-                                                                 (line[5]),
-                                                                 (line[6]),
-                                                                 (line[7]))
+                                        TO_TIMESTAMP('{7}','yyyy-mm-dd hh24:mi:ss'))'''.format(line[0], line[1],
+                                                                                               line[2],
+                                                                                               (line[3]),
+                                                                                               (line[4]),
+                                                                                               (line[5]),
+                                                                                               (line[6]),
+                                                                                               (line[7]))
         )
         con.commit()
     print('Done treatment process at ' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -134,7 +136,23 @@ def process_order_item(frame_data):
     for line in frame_data.values:
         cursor.execute(
             """INSERT INTO order_items(order_id,order_item_id,product_id,seller_id,shipping_limit_date,price,freight_value) 
-            VALUES ('{0}', '{1}', '{2}', '{3}', '{4}','{5}','{6}')""".format(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+            VALUES ('{0}', '{1}', '{2}', '{3}', '{4}','{5}','{6}')""".format(line[0], line[1], line[2], line[3],
+                                                                             line[4], line[5], line[6])
+        )
+        con.commit()
+    print('Done treatment process at ' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    cursor.close()
+    con.close()
+
+
+def process_order_review(frame_data):
+    print('Started treatment process at ' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    con = database.con_database()
+    cursor = con.cursor()
+    for line in frame_data.values:
+        cursor.execute(
+            """INSERT INTO order_review(review_id,order_id,review_score) 
+            VALUES ('{0}', '{1}', '{2}')""".format(line[0], line[1], line[2])
         )
         con.commit()
     print('Done treatment process at ' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -161,20 +179,5 @@ process_order_item(dfi)
 dfg = csv_process.import_csv(data.CSV_FILE_GEOLOCATION)
 process_geolocation(dfg)
 
-# conecction1 = database.con_database()
-# cur = conecction1.cursor()
-
-
-# for line in df.values:
-#    city = "{0}".format(line[3]).replace("'", " ")
-#    state = "{0}".format(line[4])
-#    city = city.upper()
-#    state = state.upper()
-
-# cur.execute(
-#     "INSERT INTO geolocation VALUES ({0}, {1}, {2}, '{3}', '{4}')".format(line[0], line[1], line[2], city, state)
-# )
-# conecction1.commit()
-
-# cur.close()
-# conecction1.close()
+dr = csv_process.import_csv(data.CSV_FILE_REVIEW)
+process_order_review(dr)

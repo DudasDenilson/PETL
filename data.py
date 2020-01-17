@@ -69,7 +69,14 @@ people_classification varchar(30)
 
 """
 
-
+SQL_TABLE_REVIEW = """
+create table order_review(
+review_id varchar(50) , 
+order_id varchar(50),
+review_score numeric, 
+foreign key(order_id) references orders(order_id)
+)
+"""
 
 
 
@@ -86,4 +93,4 @@ CSV_FILE_ORDER_ITEM = 'https://raw.githubusercontent.com/olist/work-at-olist-dat
 CSV_FILE_PRODUCTS = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_products_dataset.csv'
 CSV_FILE_SELLERS = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_sellers_dataset.csv'
 CSV_FILE_CUSTOMER = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_customers_dataset.csv'
-
+CSV_FILE_REVIEW = 'https://raw.githubusercontent.com/olist/work-at-olist-data/master/datasets/olist_order_reviews_dataset.csv'
